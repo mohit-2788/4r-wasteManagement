@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Waste Management</title>
+    <!-- Bootstrap CSS -->
+	
+      <link rel="stylesheet" href="css/style.css" type="text/css" media="all">	
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding-top: 60px; /* Adjust for fixed navbar */
+        }
+        .navbar {
+            background-color: #22AA86;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar-brand, .navbar-text {
+            color: white;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .card {
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .card-header {
+            background-color: #22AA86;
+            color: white;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .btn-primary {
+            background-color: #22AA86;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #45a049;
+        }
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Waste Management Dashboard</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link logout-button" href="#">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+<!-- main menu -->
+  <!-- <div class="hide-menu"> -->
+    <!-- <a href="#" id="hide-menu"><i class="fas fa-plus"></i></a> -->
+  <!-- </div> -->
+  <!-- <div class="site"> -->
+    <!-- <div class="container header"> -->
+        <!-- <div class="row"> -->
+              <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-12 logo"> -->
+                <!-- <a href="#"> -->
+                    <!-- <img src="images/4r-logo.png" class="img-responsive" alt="" /> -->
+                  <!-- </a> -->
+              <!-- </div> -->
+              <!-- <div class="col-lg-8 col-md-8 col-sm-8 col-12 navigation"> -->
+
+                <!-- <ul> -->
+                    <!-- <li><a href="index.html" class="active">Home</a></li> -->
+                    <!-- <li><a href="about.html">About</a></li> -->
+                      <!-- <li><a href="index.html">Feedback</a></li> -->
+                      <!-- <li><a href="contact.html">Contact</a></li> -->
+					  <!-- <li><a href="login.html">Login</a></li> -->
+                      <!-- <li><a href = "register.html"><button type="button" class="btn my_btn" data-toggle="modal" data-target="#myModal">Sign up/Sign in</button></a></li> -->
+                  <!-- </ul> -->
+              <!-- </div> -->
+              <!-- <div class="sidemenu"> -->
+                <!-- <span></span> -->
+                <!-- <span></span> -->
+                <!-- <span></span> -->
+              <!-- </div> -->
+        <!-- </div> -->
+      </div>
+  </div>
+  <!-- close main menu -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">My Waste Collection Schedule</div>
+                    <div class="card-body">
+                        <p>You have a waste collection scheduled for tomorrow.</p>
+                        <a href="#" class="btn btn-primary">View Schedule</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Recycling Points Near Me</div>
+                    <div class="card-body">
+                        <p>Find recycling points in your area to dispose of recyclable materials.</p>
+                        <a href="#" class="btn btn-primary">Find Recycling Points</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
