@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Waste Collector Dashboard</title>
+    <title>4R&mdash;WASTE COLLECTOR</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
@@ -105,10 +105,9 @@
 <!-- Sidebar -->
 <div class="sidebar">
     <h2 class="text-center">Dashboard</h2>
-    <a href="#home">Home</a>
-    <a href="#tasks">Tasks</a>
+    <a href="index.html">Home</a>
     <a href="#profile">Profile</a>
-    <a href="#logout">Logout</a>
+    <a href="index.html">Logout</a>
 </div>
 
 <!-- Main Content -->
@@ -117,46 +116,48 @@
         <h1>Welcome, Waste Collector</h1>
     </div>
 
-    <!-- Cards Section -->
+    <!-- Pending Requests Section -->
     <div class="container-fluid mt-4">
         <div class="row">
-            <!-- Task Overview Card -->
-            <div class="col-md-6 col-lg-4">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Task Overview</h4>
+                        <h4 class="card-title">Pending Requests</h4>
                     </div>
-                    <div class="card-body">
-                        <p><strong>Total Tasks:</strong> 15</p>
-                        <p><strong>Completed:</strong> 8</p>
-                        <p><strong>Pending:</strong> 7</p>
-                        <a href="#tasks" class="btn btn-primary">View Tasks</a>
+                    <div class="card-body" id="pending-requests">
+                        <!-- Pending requests will be dynamically inserted here -->
                     </div>
                 </div>
             </div>
-            <!-- Collection Points Card -->
-            <div class="col-md-6 col-lg-4">
+        </div>
+    </div>
+
+    <!-- Approved Tasks Section -->
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Collection Points</h4>
+                        <h4 class="card-title">Approved Tasks</h4>
                     </div>
-                    <div class="card-body">
-                        <p><strong>Points Assigned:</strong> 5</p>
-                        <p><strong>Pending Collection:</strong> 2</p>
-                        <a href="#points" class="btn btn-primary">View Points</a>
+                    <div class="card-body" id="approved-tasks">
+                        <!-- Approved tasks will be dynamically inserted here -->
                     </div>
                 </div>
             </div>
-            <!-- Reports Card -->
-            <div class="col-md-6 col-lg-4">
+        </div>
+    </div>
+
+    <!-- Completed Tasks Section -->
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Reports</h4>
+                        <h4 class="card-title">Completed Tasks</h4>
                     </div>
-                    <div class="card-body">
-                        <p><strong>Daily Collection:</strong> 50 tons</p>
-                        <p><strong>Weekly Collection:</strong> 300 tons</p>
-                        <a href="#reports" class="btn btn-primary">View Reports</a>
+                    <div class="card-body" id="completed-tasks">
+                        <!-- Completed tasks will be dynamically inserted here -->
                     </div>
                 </div>
             </div>
@@ -169,8 +170,150 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const userId = localStorage.getItem('userId');
+        if (!userId) {
+            alert('User not logged in!');
+            window.location.href = 'login.html';
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:3000/collector/${userId}/dashboard`);
+            const data = await response.json();
+
+            // Update pending tasks count
+            const pendingTasksCount = data.pendingTasks.length;
+            document.getElementById('pending-requests').innerHTML = '';
+            data.pendingTasks.forEach(task => {
+                const card = createRequestCard(task);
+                document.getElementById('pending-requests').appendChild(card);
+            });
+
+            // Update approved tasks count
+            const approvedTasksCount = data.approvedTasks.length;
+            document.getElementById('approved-tasks').innerHTML = '';
+            data.approvedTasks.forEach(task => {
+                const card = createApprovedTaskCard(task);
+                document.getElementById('approved-tasks').appendChild(card);
+            });
+
+            // Update completed tasks count
+            const completedTasksCount = data.completedTasks.length;
+            document.getElementById('completed-tasks').innerHTML = '';
+            data.completedTasks.forEach(task => {
+                const card = createCompletedTaskCard(task);
+                document.getElementById('completed-tasks').appendChild(card);
+            });
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            alert('Failed to load dashboard data.');
+        }
+    });
+
+    function createRequestCard(task) {
+        const card = document.createElement('div');
+        card.classList.add('card', 'mb-3');
+
+        const cardBody = document.createElement('div');
+        cardBody.classList.add('card-body');
+
+        const description = document.createElement('p');
+        description.classList.add('card-text');
+        description.textContent = task.description;
+
+        const approveButton = document.createElement('button');
+        approveButton.classList.add('btn', 'btn-primary', 'mr-2');
+        approveButton.textContent = 'Approve';
+        approveButton.addEventListener('click', async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/requests/${task._id}/approve`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                const data = await response.json();
+                if (data.success) {
+                    alert('Request approved successfully!');
+                    // Reload dashboard data after approval
+                    window.location.reload();
+                } else {
+                    alert('Failed to approve request.');
+                }
+            } catch (error) {
+                console.error('Error approving request:', error);
+                alert('An error occurred while approving the request.');
+            }
+        });
+
+        cardBody.appendChild(description);
+        cardBody.appendChild(approveButton);
+        card.appendChild(cardBody);
+
+        return card;
+    }
+
+    function createApprovedTaskCard(task) {
+        const card = document.createElement('div');
+        card.classList.add('card', 'mb-3');
+
+        const cardBody = document.createElement('div');
+        cardBody.classList.add('card-body');
+
+        const description = document.createElement('p');
+        description.classList.add('card-text');
+        description.textContent = task.description;
+
+        const completeButton = document.createElement('button');
+        completeButton.classList.add('btn', 'btn-primary', 'mr-2');
+        completeButton.textContent = 'Complete';
+        completeButton.addEventListener('click', async () => {
+            try {
+                const response = await fetch(`http://localhost:3000/requests/${task._id}/complete`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+                const data = await response.json();
+                if (data.success) {
+                    alert('Task marked as completed successfully!');
+                    // Reload dashboard data after completion
+                    window.location.reload();
+                } else {
+                    alert('Failed to mark task as completed.');
+                }
+            } catch (error) {
+                console.error('Error completing task:', error);
+                alert('An error occurred while completing the task.');
+            }
+        });
+
+        cardBody.appendChild(description);
+        cardBody.appendChild(completeButton);
+        card.appendChild(cardBody);
+
+        return card;
+    }
+
+    function createCompletedTaskCard(task) {
+        const card = document.createElement('div');
+        card.classList.add('card', 'mb-3');
+
+        const cardBody = document.createElement('div');
+        cardBody.classList.add('card-body');
+
+        const description = document.createElement('p');
+        description.classList.add('card-text');
+        description.textContent = task.description;
+
+        cardBody.appendChild(description);
+        card.appendChild(cardBody);
+
+        return card;
+    }
+</script>
 </body>
 </html>

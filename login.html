@@ -3,18 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-	<link rel="stylesheet" href="css/style.css" type="text/css" media="all">
-	 <link rel="stylesheet" href="css/style.css" type="text/css" media="all">
-      <link rel="stylesheet" type="text/css" href="css/responsive.css">
-      <link rel="stylesheet" type="text/css" href="testi/css/owl.css">
-      <link rel="stylesheet" type="text/css" href="testi/css/owltheme.css">
-      <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="all">
-      <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300i,400,400i,600,700&display=swap" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <!-- Bootstrap CSS -->
+    <title>4R&mdash;LOGIN</title>
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all">
+    <link rel="stylesheet" type="text/css" href="css/responsive.css">
+    <link rel="stylesheet" type="text/css" href="testi/css/owl.css">
+    <link rel="stylesheet" type="text/css" href="testi/css/owltheme.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="all">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300i,400,400i,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -66,103 +64,79 @@
 </head>
 <body>
 
-
-
-  <!-- sidemenu -->
-  <!-- <div class="sidemenu_section">
-    <div class="close_menu">
-      <span class="span1"></span>
-      <span class="span2"></span>
-    </div>
-    <div class="side_menu_links">
-      <ul id="nav-scrollspy">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="index.html">Feedback</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="register.html"><button type="button" class="btn my_btn" data-toggle="modal" data-target="#myModal">Sign up/Sign in</button></a></li>
-      </ul>
-    </div>
-</div> -->
-<!-- close sidemenu -->
-
-
-
-  
-  <!-- main menu -->
-  <div class="hide-menu">
+<!-- Main menu -->
+<div class="hide-menu">
     <a href="#" id="hide-menu"><i class="fas fa-plus"></i></a>
-  </div>
-  <div class="site">
+</div>
+<div class="site">
     <div class="container header">
         <div class="row">
-              <div class="col-lg-4 col-md-4 col-sm-4 col-12 logo">
+            <div class="col-lg-4 col-md-4 col-sm-4 col-12 logo">
                 <a href="#">
                     <img src="images/4r-logo.png" class="img-responsive" alt="" />
-                  </a>
-              </div>
-              <div class="col-lg-8 col-md-8 col-sm-8 col-12 navigation">
-
+                </a>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-12 navigation">
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="feedback.html">Feedback</a></li>
                     <li><a href="contact.html">Contact</a></li>
-					<li><a href="login.html" class="active">Login</a></li>
+                    <li><a href="login.html" class="active">Login</a></li>
                     <li><a href="register.html"><button type="button" class="btn my_btn" data-toggle="modal" data-target="#myModal">Sign up/Sign in</button></a></li>
-                  </ul>
-              </div>
-              <div class="sidemenu">
+                </ul>
+            </div>
+            <div class="sidemenu">
                 <span></span>
                 <span></span>
                 <span></span>
-              </div>
+            </div>
         </div>
-      </div>
-  </div>
-  <!-- close main menu -->
-
-    <div class="login-container">
-        <h2 class="login-title">Login</h2>
-        <form id="loginForm" class="login-form">
-            <div class="form-group">
-                <label for="email" class="login-label">Email:</label>
-                <input type="email" id="email" name="email" class="form-control login-input" required>
-            </div>
-            <div class="form-group">
-                <label for="password" class="login-label">Password:</label>
-                <input type="password" id="password" name="password" class="form-control login-input" required>
-            </div>
-            <button type="submit" class="btn btn-primary login-button">Login</button>
-        </form>
     </div>
+</div>
+<!-- Close main menu -->
 
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+<div class="login-container">
+    <h2 class="login-title">Login</h2>
+    <form id="loginForm" class="login-form">
+        <div class="form-group">
+            <label for="email" class="login-label">Email:</label>
+            <input type="email" id="email" name="email" class="form-control login-input" required>
+        </div>
+        <div class="form-group">
+            <label for="password" class="login-label">Password:</label>
+            <input type="password" id="password" name="password" class="form-control login-input" required>
+        </div>
+        <button type="submit" class="btn btn-primary login-button">Login</button>
+    </form>
+</div>
 
-            const response = await fetch('http://localhost:3000/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            });
+<script>
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
 
-            const result = await response.json();
-            alert(result.message);
-            if (response.ok) {
-                // Redirect to the role-based dashboard
-                window.location.href = result.redirect;
-            }
+        const response = await fetch('http://localhost:3000/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
         });
-    </script>
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        const result = await response.json();
+        alert(result.message);
+        if (response.ok) {
+            localStorage.setItem('userId', result.userId); // Store userId in localStorage
+            window.location.href = result.redirect; // Redirect to the role-based dashboard
+        }
+    });
+</script>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

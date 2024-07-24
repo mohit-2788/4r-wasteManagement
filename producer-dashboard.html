@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard - Waste Management</title>
+    <title>4R&mdash;WASTE PRODUCER</title>
     <!-- Bootstrap CSS -->
-	
-      <link rel="stylesheet" href="css/style.css" type="text/css" media="all">	
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -74,55 +72,26 @@
             </div>
         </div>
     </nav>
-<!-- main menu -->
-  <!-- <div class="hide-menu"> -->
-    <!-- <a href="#" id="hide-menu"><i class="fas fa-plus"></i></a> -->
-  <!-- </div> -->
-  <!-- <div class="site"> -->
-    <!-- <div class="container header"> -->
-        <!-- <div class="row"> -->
-              <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-12 logo"> -->
-                <!-- <a href="#"> -->
-                    <!-- <img src="images/4r-logo.png" class="img-responsive" alt="" /> -->
-                  <!-- </a> -->
-              <!-- </div> -->
-              <!-- <div class="col-lg-8 col-md-8 col-sm-8 col-12 navigation"> -->
 
-                <!-- <ul> -->
-                    <!-- <li><a href="index.html" class="active">Home</a></li> -->
-                    <!-- <li><a href="about.html">About</a></li> -->
-                      <!-- <li><a href="index.html">Feedback</a></li> -->
-                      <!-- <li><a href="contact.html">Contact</a></li> -->
-					  <!-- <li><a href="login.html">Login</a></li> -->
-                      <!-- <li><a href = "register.html"><button type="button" class="btn my_btn" data-toggle="modal" data-target="#myModal">Sign up/Sign in</button></a></li> -->
-                  <!-- </ul> -->
-              <!-- </div> -->
-              <!-- <div class="sidemenu"> -->
-                <!-- <span></span> -->
-                <!-- <span></span> -->
-                <!-- <span></span> -->
-              <!-- </div> -->
-        <!-- </div> -->
-      </div>
-  </div>
-  <!-- close main menu -->
     <div class="container">
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header">My Waste Collection Schedule</div>
+                    <div class="card-header">Raise a Collection Request</div>
                     <div class="card-body">
-                        <p>You have a waste collection scheduled for tomorrow.</p>
-                        <a href="#" class="btn btn-primary">View Schedule</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">Recycling Points Near Me</div>
-                    <div class="card-body">
-                        <p>Find recycling points in your area to dispose of recyclable materials.</p>
-                        <a href="#" class="btn btn-primary">Find Recycling Points</a>
+                        <form id="collectionRequestForm">
+                            <div class="form-group">
+                                <label for="requestDescription">Request Description</label>
+                                <input type="text" class="form-control" id="requestDescription" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="collectorSelect">Select Collector</label>
+                                <select class="form-control" id="collectorSelect" required>
+                                    <!-- Options will be dynamically added here -->
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit Request</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -133,5 +102,65 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Redirect to login if not logged in
+            const userId = localStorage.getItem('userId');
+            if (!userId) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Fetch and populate collectors dropdown
+            fetchCollectors();
+
+            // Handle form submission
+            document.getElementById('collectionRequestForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const description = document.getElementById('requestDescription').value;
+                const collectorId = document.getElementById('collectorSelect').value;
+
+                if (!collectorId) {
+                    alert('Please select a collector.');
+                    return;
+                }
+
+                fetch('http://localhost:3000/requests', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ userId, collectorId, description, status: 'pending' }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Request submitted successfully!');
+                    } else {
+                        alert('Failed to submit request.');
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('An error occurred while submitting the request.');
+                });
+            });
+        });
+
+        function fetchCollectors() {
+            fetch('http://localhost:3000/collectors')
+            .then(response => response.json())
+            .then(data => {
+                const collectorSelect = document.getElementById('collectorSelect');
+                data.forEach(collector => {
+                    const option = document.createElement('option');
+                    option.value = collector._id;
+                    option.textContent = collector.username;
+                    collectorSelect.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching collectors:', error));
+        }
+    </script>
 </body>
 </html>
